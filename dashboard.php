@@ -1,0 +1,109 @@
+<?php
+    //connect to db
+    $conn = require_once "db_connect.php"; 
+
+    $totaalverkoopwaarde = 0;
+    $totaalinkoopwaarde = 0;
+
+    //prepare sql for worth calculation
+    $system = $conn->prepare(
+        "select prijs, verkoopprijs, voorraad.aantal from product
+        left join voorraad
+        using(idproduct);"
+    );
+    //run sql
+    $system->execute();
+    
+    //get results
+    $worth_result = $system->get_result();
+    while ($row = $worth_result->fetch_assoc()) {
+        $prijs = $row['prijs'];
+        $verkoopprijs = $row['verkoopprijs'];
+        $aantal = $row['aantal'];
+
+        $totaalverkoopwaarde += $verkoopprijs * $aantal;
+        $totaalinkoopwaarde += $prijs * $aantal;
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div id="header">
+        <a href="dashboard.php"><img id="logo" src="img/logo.png" alt="logo"></a>
+    </div>
+    <div id="main_container">
+        <div id="waarde_container">
+            <p><?php echo("Totaal inkoop waarde: €".$totaalinkoopwaarde) ?></p>
+            <p><?php echo("Totaal verkoop waarde: €".$totaalverkoopwaarde) ?></p>            
+        </div>
+
+        <table id="dashboard_table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Type</th>
+                    <th>Fabriek</th>
+                    <th>Aantal</th>
+                    <th>Prijs</th>
+                    <th>Verkoopprijs</th>
+                    <th>Locatie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    //prepare sql for table
+                    $system = $conn->prepare(
+                        "select product.idproduct, naam, type, prijs, verkoopprijs, fabriek.fabrieknaam, voorraad.aantal, voorraad.minimumaantal, locatie.locatienaam from product
+                        left join fabriek
+                        using(idfabriek)
+                        inner join voorraad
+                        on voorraad.idproduct = product.idproduct
+                        inner join locatie
+                        on voorraad.idlocatie = locatie.idlocatie
+                        order by locatienaam;"
+                    );
+                    //run sql
+                    $system->execute();
+
+                    //get results and put them in the table
+                    $table_result = $system->get_result();
+                    while ($row = $table_result->fetch_assoc()) {
+                        echo("
+                            <tr>
+                                <td>". htmlspecialchars($row['naam']). "</td>
+                                <td>". htmlspecialchars($row['type']). "</td>
+                                <td>". htmlspecialchars($row['fabrieknaam']). "</td>
+                                <td>". htmlspecialchars($row['aantal']). "</td>
+                                <td> €". htmlspecialchars($row['prijs']). "</td>
+                                <td> €". htmlspecialchars($row['verkoopprijs']). "</td>
+                                <td>". htmlspecialchars($row['locatienaam']). "</td>
+                                <td>
+                                    <form method='POST' action='bewerken.php' style='display:inline;'>
+                                        <input type='hidden' name='email' value='". htmlspecialchars($row["idproduct"]). "'>
+                                        <button class='dashboard_button' type='submit'>Bewerken</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method='POST' action='bekijken.php' style='display:inline;'>
+                                        <input type='hidden' name='email' value='". htmlspecialchars($row["idproduct"]). "'>
+                                        <button class='dashboard_button' type='submit'>Bekijken</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        ");
+                    }
+                    //close system after echoing tables
+                    $system->close();
+                ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
