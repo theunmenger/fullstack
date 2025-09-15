@@ -4,6 +4,7 @@
 
     $totaalverkoopwaarde = 0;
     $totaalinkoopwaarde = 0;
+    $selected_locatie = "alles";
 
     //prepare sql for worth calculation
     $system = $conn->prepare(

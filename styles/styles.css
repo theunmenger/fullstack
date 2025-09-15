@@ -9,6 +9,7 @@ body {
     display:flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
 #header {
@@ -16,7 +17,7 @@ body {
     flex-direction: row;
     background-color: #257B81;
     width:100%;
-    max-height: 80px;
+    height: 80px;
     border-bottom: solid black 3px;
     align-items: center;
     justify-content: center;
@@ -29,13 +30,22 @@ body {
 }
 
 #main_container {
+    flex:1;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 70%;
     background-color: white;
     padding:40px;
-    height:100vh;
+}
+
+#login_container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    background-color: white;
 }
 
 #dashboard_table {
@@ -90,4 +100,34 @@ body {
     padding: 15px;
     border-radius: 10px;
     border: solid black 1px;
+}
+
+#login {
+    background-color: #D9D9D9;
+    border: solid black 1px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.input {
+    font-weight: bold;
+    background-color:white;
+    padding: 15px;
+    border-style: none;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-bottom: 20px;
+}
+
+.login_button {
+    background-color: #257B81;
+    color: white;
+    padding: 15px;
+    border-style: none;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
