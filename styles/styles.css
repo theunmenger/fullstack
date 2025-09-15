@@ -81,3 +81,13 @@ body {
 #logo {
     height: 80px;
 }
+
+#locatie_container {
+    align-self: flex-start;
+}
+
+#locatie_container select {
+    padding: 15px;
+    border-radius: 10px;
+    border: solid black 1px;
+}

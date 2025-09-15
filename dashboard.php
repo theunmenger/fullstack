@@ -24,6 +24,10 @@
         $totaalverkoopwaarde += $verkoopprijs * $aantal;
         $totaalinkoopwaarde += $prijs * $aantal;
     }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $selected_locatie = $_POST["locatie"];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +45,32 @@
         <a href="index.php"><h3>Logout</h3></a>
         <a href="settings.php"><h3>Settings</h3></a>
     </div>
+    
     <div id="main_container">
+        <div id="locatie_container">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <select name="locatie">
+                    <option hidden value="Selecteer locatie:">Selecteer locatie:</option>
+                    <option value="alles">Alles</option>
+                    <?php
+                        $system = $conn->prepare(
+                            "select locatienaam from locatie;"
+                        );
+                        //run sql
+                        $system->execute();
+                        
+                        //get results
+                        $locatie_result = $system->get_result();
+                        while ($row = $locatie_result->fetch_assoc()) {
+                            echo("
+                                <option value=". htmlspecialchars($row['locatienaam']).">". htmlspecialchars($row['locatienaam'])."</option>
+                            ");
+                        }
+                    ?>
+                </select>
+                <button class='dashboard_button' type='submit'>Sorteer</button>
+            </form>
+        </div>
         <div id="waarde_container">
             <p><?php echo("Totaal inkoop waarde: €".$totaalinkoopwaarde) ?></p>
             <p><?php echo("Totaal verkoop waarde: €".$totaalverkoopwaarde) ?></p>            
@@ -62,16 +91,31 @@
             <tbody>
                 <?php 
                     //prepare sql for table
-                    $system = $conn->prepare(
-                        "select product.idproduct, naam, type, prijs, verkoopprijs, fabriek.fabrieknaam, voorraad.aantal, voorraad.minimumaantal, locatie.locatienaam from product
-                        left join fabriek
-                        using(idfabriek)
-                        inner join voorraad
-                        on voorraad.idproduct = product.idproduct
-                        inner join locatie
-                        on voorraad.idlocatie = locatie.idlocatie
-                        order by locatienaam;"
-                    );
+                    //kijk of alles is geselecteerd
+                    if ($selected_locatie == "alles") {
+                        $system = $conn->prepare(
+                            "select product.idproduct, naam, type, prijs, verkoopprijs, fabriek.fabrieknaam, voorraad.aantal, voorraad.minimumaantal, locatie.locatienaam from product
+                            left join fabriek
+                            using(idfabriek)
+                            inner join voorraad
+                            on voorraad.idproduct = product.idproduct
+                            inner join locatie
+                            on voorraad.idlocatie = locatie.idlocatie
+                            order by locatienaam;"
+                        );   
+                    } else {
+                        $system = $conn->prepare(
+                            "select product.idproduct, naam, type, prijs, verkoopprijs, fabriek.fabrieknaam, voorraad.aantal, voorraad.minimumaantal, locatie.locatienaam from product
+                            left join fabriek
+                            using(idfabriek)
+                            inner join voorraad
+                            on voorraad.idproduct = product.idproduct
+                            inner join locatie
+                            on voorraad.idlocatie = locatie.idlocatie
+                            where locatienaam = ?;"
+                        );
+                        $system->bind_param("s", $selected_locatie);
+                    }
                     //run sql
                     $system->execute();
 
