@@ -19,6 +19,13 @@ body {
     max-height: 80px;
     border-bottom: solid black 3px;
     align-items: center;
+    justify-content: center;
+}
+
+#header a {
+    text-decoration: none;
+    color: white;
+    margin: 10px
 }
 
 #main_container {

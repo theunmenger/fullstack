@@ -37,6 +37,9 @@
 <body>
     <div id="header">
         <a href="dashboard.php"><img id="logo" src="img/logo.png" alt="logo"></a>
+        <a href="adding.php"><h3>Toevoegen</h3></a>
+        <a href="index.php"><h3>Logout</h3></a>
+        <a href="settings.php"><h3>Settings</h3></a>
     </div>
     <div id="main_container">
         <div id="waarde_container">

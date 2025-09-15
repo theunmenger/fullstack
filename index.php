@@ -11,7 +11,6 @@
         
     </div>
     <div id=main_container>
-        <a href="signup.php">Sign up</a>
         <a href="login.php">Login</a>
     </div>
 </body>
