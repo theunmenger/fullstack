@@ -1,5 +1,36 @@
 <?php
    $conn = require_once "db_connect.php"; 
+
+    $email_err = $password_err = "";
+    $correct_pass = $correct_email = false;
+
+   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email_err = "This email is invalid";
+        } else {
+            $system = $conn->prepare(
+                "select email, password from user where email = '$email';"
+            );
+            $system->excecute();
+            
+            $user_result = $system->get_result();
+            while($row = $user_result->fetch_assoc()) {
+                $validate_email = $row['email'];
+                $validate_password = $row['password'];
+            }
+            if (password_verify($password, $validate_password)) {
+                $correct_pass = true;
+            } else {
+                $password_err = "This password is incorrect";
+            }
+            if ($validate_email == null) {
+                $email_err = "This email does not exist";
+            }
+        }  
+    }
 ?>
 
 <!DOCTYPE html>
