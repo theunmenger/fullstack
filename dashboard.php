@@ -1,4 +1,7 @@
 <?php
+    // if (!isset($_SESSION['iduser'])) {
+    //     header('location: index.php');
+    // }
     //connect to db
     $conn = require_once "db_connect.php"; 
 
@@ -41,10 +44,11 @@
 </head>
 <body>
     <div id="header">
-        <a href="dashboard.php"><img id="logo" src="img/logo.png" alt="logo"></a>
+        <a href="dashboard.php" id="current_page"><img id="logo" src="img/logo.png" alt="logo"></a>
         <a href="adding.php"><h3>Toevoegen</h3></a>
-        <a href="index.php"><h3>Logout</h3></a>
         <a href="settings.php"><h3>Settings</h3></a>
+        <a href="account_creation.php"><h3>Nieuwe gebruiker</h3></a>
+        <a href="index.php"><h3>Logout</h3></a>
     </div>
     
     <div id="main_container">

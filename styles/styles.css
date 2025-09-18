@@ -24,9 +24,18 @@ body {
 }
 
 #header a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     color: white;
-    margin: 10px
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 100%;
+}
+
+#header a:hover {
+    background-color: #195053;
 }
 
 #main_container {
@@ -130,4 +139,12 @@ body {
     border-radius: 5px;
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.error {
+    color:red;
+}
+
+#current_page {
+    background-color: #22989e;
 }
