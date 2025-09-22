@@ -1,7 +1,8 @@
 <?php
-    // if (!isset($_SESSION['iduser'])) {
-    //     header('location: index.php');
-    // }
+    session_start();
+    if (!isset($_SESSION['iduser'])) {
+        header('location: index.php');
+    }
     //connect to db
     $conn = require_once "db_connect.php"; 
 

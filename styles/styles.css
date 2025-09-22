@@ -111,6 +111,15 @@ body {
     border: solid black 1px;
 }
 
+#admin_selector {
+    padding: 15px;
+    border-radius: 5px;
+    border: solid black 1px;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 #login {
     background-color: #D9D9D9;
     border: solid black 1px;
@@ -139,6 +148,17 @@ body {
     border-radius: 5px;
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.form_button {
+    background-color: #257B81;
+    color: white;
+    padding: 15px;
+    border-style: none;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 100%;
 }
 
 .error {
