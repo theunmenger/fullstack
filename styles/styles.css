@@ -111,7 +111,7 @@ body {
     border: solid black 1px;
 }
 
-#admin_selector {
+#select {
     padding: 15px;
     border-radius: 5px;
     border: solid black 1px;
@@ -167,4 +167,13 @@ body {
 
 #current_page {
     background-color: #22989e;
+}
+
+#form_container {
+    width: 50%;
+}
+
+#product_toevoegen {
+    display: flex;
+    flex-direction: column;
 }

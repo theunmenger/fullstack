@@ -143,12 +143,6 @@
                                         <button class='dashboard_button' type='submit'>Bewerken</button>
                                     </form>
                                 </td>
-                                <td>
-                                    <form method='POST' action='bekijken.php' style='display:inline;'>
-                                        <input type='hidden' name='email' value='". htmlspecialchars($row["idproduct"]). "'>
-                                        <button class='dashboard_button' type='submit'>Bekijken</button>
-                                    </form>
-                                </td>
                             </tr>
                         ");
                     }

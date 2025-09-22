@@ -3,6 +3,7 @@
     if (!isset($_SESSION['iduser'])) {
         header('location: index.php');
     }
+
     $conn = require_once "db_connect.php";
     $email_err_notif = $username_err = "";
     $password_verify_err = "";
@@ -82,7 +83,7 @@
         <input class="input" type="password" id="password" name="password" placeholder="Wachtwoord..." required minlength="6"><br>
         <input class="input" type="password" id="verify_password" name="verify_password" placeholder="Bevestig wachtwoord..." required>
         <br>
-        <select id="admin_selector" name="admin" id="admin">
+        <select id="select" name="admin" id="admin">
             <option value="1">Admin account</option>
             <option value="0">Normale gebruiker</option>
         </select><br>
