@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if (isset($_SESSION['iduser'])) {
+        session_destroy();
+    }
     $conn = require_once "db_connect.php"; 
 
     $email_err = $password_err = "";

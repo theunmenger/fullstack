@@ -42,24 +42,19 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div id="header">
-        <a href="dashboard.php"><img id="logo" src="img/logo.png" alt="logo"></a>
-        <a href="adding.php" id="current_page"><h3>Toevoegen</h3></a>
-        <a href="settings.php"><h3>Settings</h3></a>
-        <a href="account_creation.php"><h3>Nieuwe gebruiker</h3></a>
-        <a href="index.php"><h3>Logout</h3></a>
-    </div>
+    <?php require_once "header.php";?>
     <div id="main_container">
+        <h2 class="koptekst">Producten toevoegen</h2>
         <div id="form_container">
-            <form method="POST" id="product_toevoegen" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <input class="input" type="text" name="product_name" placeholder="Product naam..."> 
-                <input class="input" type="text" name="product_type" placeholder="Product type"> 
-                <input class="input" type="number" name="prijs" step="0.01" placeholder="Prijs...">
-                <input class="input" type="number" name="verkoopprijs" step="0.01" placeholder="Verkoopprijs...">
-                <input class="input" type="number" name="aantal" placeholder="Aantal...">
-                <input class="input" type="number" name="min_aantal" placeholder="Minimum aantal">
+            <form method="POST" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <input class="input" type="text" name="product_name" placeholder="Product naam..." required> 
+                <input class="input" type="text" name="product_type" placeholder="Product type" required> 
+                <input class="input" type="number" name="prijs" step="0.01" placeholder="Inkoopprijs..." required>
+                <input class="input" type="number" name="verkoopprijs" step="0.01" placeholder="Verkoopprijs..." required>
+                <input class="input" type="number" name="aantal" placeholder="Aantal..." required>
+                <input class="input" type="number" name="min_aantal" placeholder="Minimum aantal" required>
                 <select name="idlocatie" id="select">
-                    <option hidden value="Selecteer locatie:">Selecteer locatie:</option>
+                    <option hidden value="Selecteer locatie:" required>Selecteer locatie:</option>
                     <?php
                         $system = $conn->prepare(
                             "select locatienaam, idlocatie from locatie;"
@@ -77,7 +72,7 @@
                     ?>
                 </select>
                 <select name="idfabriek" id="select">
-                    <option hidden value="Selecteer locatie:">Selecteer fabriek:</option>
+                    <option hidden value="Selecteer locatie:" required>Selecteer fabriek:</option>
                     <?php
                         $system = $conn->prepare(
                             "select fabrieknaam, idfabriek from fabriek;"

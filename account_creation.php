@@ -1,10 +1,27 @@
 <?php
     session_start();
+    $conn = require_once "db_connect.php";
+    
+
     if (!isset($_SESSION['iduser'])) {
         header('location: index.php');
+        exit;
     }
 
-    $conn = require_once "db_connect.php";
+    $system = $conn->prepare("select admin from user where iduser = ?");
+    $system->bind_param("i", $_SESSION['iduser']);
+    $system->execute();
+    $system->bind_result($admin_status);
+    $system->fetch();
+    $system->close();
+
+    $admin_status = (bool)$admin_status;
+
+    if (!$admin_status) {
+        header('location: dashboard.php');
+        exit;
+    }
+
     $email_err_notif = $username_err = "";
     $password_verify_err = "";
 
@@ -66,29 +83,26 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div id="header">
-        <a href="dashboard.php"><img id="logo" src="img/logo.png" alt="logo"></a>
-        <a href="adding.php"><h3>Toevoegen</h3></a>
-        <a href="settings.php"><h3>Settings</h3></a>
-        <a href="account_creation.php" id="current_page"><h3>Nieuwe gebruiker</h3></a>
-        <a href="index.php"><h3>Logout</h3></a>
-    </div>
+    <?php require_once "header.php";?>
     <div id="main_container">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <p class="error"><?php echo $email_err_notif;?></p> 
-        <input class="input" type="text" id="email" name="email" placeholder="Example@gmail.com...">
-        <p class="error"><?php echo $username_err;?></p>
-        <input class="input" type="text" id="username" name="username" placeholder="Gebruikersnaam..." required minlength="3"> 
-        <p class="error"><?php echo $password_verify_err;?></p>
-        <input class="input" type="password" id="password" name="password" placeholder="Wachtwoord..." required minlength="6"><br>
-        <input class="input" type="password" id="verify_password" name="verify_password" placeholder="Bevestig wachtwoord..." required>
-        <br>
-        <select id="select" name="admin" id="admin">
-            <option value="1">Admin account</option>
-            <option value="0">Normale gebruiker</option>
-        </select><br>
-        <input class="form_button" type="submit" name="register" value="Toevoegen">
-      </form>
+        <div id="form_container">
+            <a class="back_button" href="admin.php">Back</a>
+            <form method="POST" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <p class="error"><?php echo $email_err_notif;?></p> 
+                <input class="input" type="text" id="email" name="email" placeholder="Example@gmail.com...">
+                <p class="error"><?php echo $username_err;?></p>
+                <input class="input" type="text" id="username" name="username" placeholder="Gebruikersnaam..." required minlength="3"> 
+                <p class="error"><?php echo $password_verify_err;?></p>
+                <input class="input" type="password" id="password" name="password" placeholder="Wachtwoord..." required minlength="6"><br>
+                <input class="input" type="password" id="verify_password" name="verify_password" placeholder="Bevestig wachtwoord..." required>
+                <br>
+                <select id="select" name="admin" id="admin">
+                    <option value="1">Admin account</option>
+                    <option value="0">Normale gebruiker</option>
+                </select><br>
+                <input class="form_button" type="submit" name="register" value="Toevoegen">
+            </form>
+        </div>
     </div>
 </body>
 </html>

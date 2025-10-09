@@ -44,15 +44,9 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div id="header">
-        <a href="dashboard.php" id="current_page"><img id="logo" src="img/logo.png" alt="logo"></a>
-        <a href="adding.php"><h3>Toevoegen</h3></a>
-        <a href="settings.php"><h3>Settings</h3></a>
-        <a href="account_creation.php"><h3>Nieuwe gebruiker</h3></a>
-        <a href="index.php"><h3>Logout</h3></a>
-    </div>
-    
+    <?php require_once "header.php";?>    
     <div id="main_container">
+        <h2 class="koptekst">Voorraad</h2>
         <div id="locatie_container">
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <select name="locatie">
@@ -128,12 +122,13 @@
                     //get results and put them in the table
                     $table_result = $system->get_result();
                     while ($row = $table_result->fetch_assoc()) {
+                        $class = (htmlspecialchars($row['aantal']) <= htmlspecialchars($row['minimumaantal'])) ? 'error' : '';
                         echo("
                             <tr>
                                 <td>". htmlspecialchars($row['naam']). "</td>
                                 <td>". htmlspecialchars($row['type']). "</td>
                                 <td>". htmlspecialchars($row['fabrieknaam']). "</td>
-                                <td>". htmlspecialchars($row['aantal']). "</td>
+                                <td class='$class'>". htmlspecialchars($row['aantal']). "</td>
                                 <td> €". htmlspecialchars($row['prijs']). "</td>
                                 <td> €". htmlspecialchars($row['verkoopprijs']). "</td>
                                 <td>". htmlspecialchars($row['locatienaam']). "</td>
