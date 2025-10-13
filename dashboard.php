@@ -77,6 +77,7 @@
         </div>
 
         <table id="dashboard_table">
+            <p class="error" style="align-self: flex-start;">* is onder het minimum aantal</p>
             <thead>
                 <tr>
                     <th>Product</th>
@@ -134,8 +135,14 @@
                                 <td>". htmlspecialchars($row['locatienaam']). "</td>
                                 <td>
                                     <form method='POST' action='bewerken.php' style='display:inline;'>
-                                        <input type='hidden' name='email' value='". htmlspecialchars($row["idproduct"]). "'>
+                                        <input type='hidden' name='idproduct' value='". htmlspecialchars($row["idproduct"]). "'>
                                         <button class='dashboard_button' type='submit'>Bewerken</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method='POST' action='bestellen.php' style='display:inline;'>
+                                        <input type='hidden' name='idproduct' value='". htmlspecialchars($row["idproduct"]). "'>
+                                        <button class='dashboard_button' type='submit'>Bestellen</button>
                                     </form>
                                 </td>
                             </tr>
