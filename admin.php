@@ -1,7 +1,7 @@
 <?php
     session_start();
     $conn = require_once "db_connect.php";
-
+    $msg = "";
     if (!isset($_SESSION['iduser'])) {
         header('location: index.php');
         exit;
@@ -17,8 +17,10 @@
     $admin_status = (bool)$admin_status;
 
     if (!$admin_status) {
-        header('location: dashboard.php');
-        exit;
+        $msg = "you do not have access to the admin panel";
+
+        header("location: dashboard.php?edit_notification=". urlencode($msg));
+        exit();
     }
 ?>
 

@@ -6,7 +6,9 @@
     //connect to db
     $conn = require_once "db_connect.php"; 
 
-    $idproduct = $_POST['idproduct'];
+
+    $_SESSION['idproduct'] = $_POST['idproduct'];
+    $idproduct = $_SESSION["idproduct"];
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +75,38 @@
                 ?>
             </tbody>
         </table>
+        <div id="update_form_container">
+            <form method="POST" class="update_form" action="change_product_name.php">
+                <input type="hidden" name="idproduct" value="<?php echo htmlspecialchars($idproduct);?>">
+                <input class="update_input" type="text" name="new_product_name" placeholder="Nieuwe product naam...">
+                <input class="update_form_button" type="submit" name="update" value="Verander product naam">
+            </form>
+            <form method="POST" class="update_form" action="change_product_type.php">
+                <input type="hidden" name="idproduct" value="<?php echo htmlspecialchars($idproduct);?>">
+                <input class="update_input" type="text" name="new_product_type" placeholder="Nieuwe product type...">
+                <input class="update_form_button" type="submit" name="update" value="Verander product type">
+            </form>
+            <form method="POST" class="update_form" action="change_inkoopprijs.php">
+                <input type="hidden" name="idproduct" value="<?php echo htmlspecialchars($idproduct);?>">
+                <input class="update_input" step="0.01" type="number" name="new_inkoopprijs" placeholder="Nieuwe inkoopprijs...">
+                <input class="update_form_button" type="submit" name="update" value="Verander inkoopprijs">
+            </form>
+            <form method="POST" class="update_form" action="change_verkoopprijs.php">
+                <input type="hidden" name="idproduct" value="<?php echo htmlspecialchars($idproduct);?>">
+                <input class="update_input" step="0.01" type="number" name="new_verkoopprijs" placeholder="Nieuwe verkoopprijs...">
+                <input class="update_form_button" type="submit" name="update" value="Verander verkoopprijs">
+            </form>
+            <form method="POST" class="update_form" action="change_aantal.php">
+                <input type="hidden" name="idproduct" value="<?php echo htmlspecialchars($idproduct);?>">
+                <input class="update_input" step="1" type="number" name="new_aantal" placeholder="Nieuw aantal...">
+                <input class="update_form_button" type="submit" name="update" value="Verander aantal">
+            </form>
+            <form method="POST" class="update_form" action="change_min_aantal.php">
+                <input type="hidden" name="idproduct" value="<?php echo htmlspecialchars($idproduct);?>">
+                <input class="update_input" step="1" type="number" name="new_min_aantal" placeholder="Nieuw minimum aantal...">
+                <input class="update_form_button" type="submit" name="update" value="Verander minimum aantal">
+            </form>
+        </div>
     </div>
 </body>
 </html>

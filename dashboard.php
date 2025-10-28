@@ -6,6 +6,10 @@
     //connect to db
     $conn = require_once "db_connect.php"; 
 
+    if (isset($_SESSION['idproduct'])) {
+        unset($_SESSION['idproduct']);
+    }
+
     $totaalverkoopwaarde = 0;
     $totaalinkoopwaarde = 0;
     $selected_locatie = "alles";
@@ -35,6 +39,22 @@
     }
 ?>
 
+<script>
+    //delete notification na dat het weg fade
+    window.addEventListener('DOMContentLoaded', () => {
+        const notification = document.querySelector('.notification');
+        if (notification) {
+            setTimeout(() => {
+                notification.remove();
+
+                const url = new URL(window.location);
+                url.searchParams.delete('edit_notification');
+                history.replaceState(null, '', url);
+            }, 5000);
+        }
+    });
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +65,14 @@
 </head>
 <body>
     <?php require_once "header.php";?>    
+
+    <?php
+    //notification code
+        if (isset($_GET['edit_notification'])) {
+            $msg = urldecode($_GET['edit_notification']);
+            echo "<div class='notification'>$msg</div>";
+        }
+    ?>
     <div id="main_container">
         <h2 class="koptekst">Voorraad</h2>
         <div id="locatie_container">

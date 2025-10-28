@@ -26,10 +26,16 @@
         $idproduct = $conn->insert_id;
 
         $system = $conn->prepare("
-            insert into voorraad (idlocatie, idproduct, idfabriek, aantal, minimumaantal) values (?, ?, ?, ?, ?);
+            insert into voorraad (idlocatie, idproduct, aantal, minimumaantal) values (?, ?, ?, ?);
         ");
-        $system->bind_param("iiiii", $idlocatie, $idproduct, $idfabriek, $aantal, $min_aantal);
+        $system->bind_param("iiii", $idlocatie, $idproduct, $aantal, $min_aantal);
         $system->execute();
+        $system->close();
+        
+        $msg = "Succesfully added product";
+
+        header("location: dashboard.php?edit_notification=". urlencode($msg));
+        exit();
     }
 ?>
 

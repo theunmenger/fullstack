@@ -186,6 +186,18 @@ body {
     margin-bottom: 20px;
 }
 
+.update_input {
+    font-weight: bold;
+    background-color:white;
+    padding: 15px;
+    border: solid black 1px;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-right: 20px;
+    width: 65%;
+}
+
 .login_button {
     cursor: pointer;
     background-color: #257B81;
@@ -207,6 +219,24 @@ body {
     padding-left: 40px;
     padding-right: 40px;
     width: 100%;
+}
+
+.update_form_button {
+    cursor: pointer;
+    background-color: #257B81;
+    color: white;
+    padding: 15px;
+    border-style: none;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    width:25%;
+    justify-content: center;
+    align-items: center;
+}
+
+.update_form_button:hover {
+    background-color: #195053;
 }
 
 .delete_button {
@@ -237,6 +267,27 @@ body {
     color: rgb(1, 194, 1);
 }
 
+.notification {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    padding: 10px;
+    color: white;
+    background-color: #257B81;
+    border: 1px solid black;
+    border-radius: 5px;
+    opacity: 1;
+    animation: fadeOut 3s forwards;
+    animation-delay: 2s;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
 #current_page {
     background-color: #22989e;
 }
@@ -245,9 +296,21 @@ body {
     width: 50%;
 }
 
+#update_form_container {
+    width: 80%;
+}
+
 .form {
     display: flex;
     flex-direction: column;
+}
+
+.update_form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .back_button {
