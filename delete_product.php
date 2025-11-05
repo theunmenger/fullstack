@@ -30,7 +30,7 @@
         $system->execute();
         $system->close();
 
-        $msg = "Product ". $name. "verwijderd";
+        $msg = "Product ". $name. " verwijderd";
 
         header("location: dashboard.php?edit_notification=". urlencode($msg));
         exit();

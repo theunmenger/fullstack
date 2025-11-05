@@ -13,8 +13,14 @@
         $verkoopprijs = $_POST['verkoopprijs'] ?? '';
         $aantal = $_POST['aantal'] ?? '';
         $min_aantal = $_POST['min_aantal'] ?? '';
-        $idlocatie = $_POST['idlocatie'] ?? '';
-        $idfabriek = $_POST['idfabriek'] ?? '';
+        $idlocatie = $_POST['idlocatie'];
+        $idfabriek = $_POST['idfabriek'];
+
+        if (empty($_POST['idfabriek']) || empty($_POST['idlocatie'])) {
+            $msg = "Selecteer een fabriek en een locatie.";
+            header("Location: dashboard.php?error_notification=" . urlencode($msg));
+            exit;
+        }
 
         //insert into product table
         $system = $conn->prepare("
@@ -22,6 +28,7 @@
         ");
         $system->bind_param("ssdid", $product_name, $product_type, $prijs, $idfabriek, $verkoopprijs);
         $system->execute();
+        $system->close();
         
         $idproduct = $conn->insert_id;
 
@@ -60,7 +67,7 @@
                 <input class="input" type="number" name="aantal" placeholder="Aantal..." required>
                 <input class="input" type="number" name="min_aantal" placeholder="Minimum aantal" required>
                 <select name="idlocatie" id="select">
-                    <option hidden value="Selecteer locatie:" required>Selecteer locatie:</option>
+                    <option hidden value="" required>Selecteer locatie:</option>
                     <?php
                         $system = $conn->prepare(
                             "select locatienaam, idlocatie from locatie;"
@@ -78,7 +85,7 @@
                     ?>
                 </select>
                 <select name="idfabriek" id="select">
-                    <option hidden value="Selecteer locatie:" required>Selecteer fabriek:</option>
+                    <option hidden value="" required>Selecteer fabriek:</option>
                     <?php
                         $system = $conn->prepare(
                             "select fabrieknaam, idfabriek from fabriek;"

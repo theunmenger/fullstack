@@ -13,7 +13,7 @@
 
         if (!preg_match("/^[a-zA-Z-0-9_]+$/", $new_username)) {
             $msg = "Username can only contain letters, numbers, underscores (_), and hyphens (-)";
-            header("location: logged_in.php?error=". urlencode($msg));
+            header("location: dashboard.php?error_notification=". urlencode($msg));
             exit;
         } else {
             $system = $conn->prepare("
@@ -21,7 +21,11 @@
             ");
             $system->bind_param("si", $new_username, $iduser);
             $system->execute();     
-            header("Location: settings.php?change_notif=". urlencode($new_username));
+            $system->close();
+
+            $msg = "Gebruikersnaam veranderd";    
+
+            header("location: dashboard.php?edit_notification=". urlencode($msg));
             exit;            
         }
     }

@@ -37,7 +37,6 @@
     <div id="main_container">
         <h2 class="koptekst">Admin omgeving</h2>
         <a href="account_creation.php" class="link">Maak een nieuw account</a>
-        <a href="account_list.php" class="link">Bekijk en bewerk accounts</a>
     </div>
 </body>
 </html>

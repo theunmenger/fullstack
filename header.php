@@ -10,6 +10,7 @@
                     <a href='add_locatie.php'><h3>Locatie toevoegen</h3></a>
                 </div>
             </div>
+            <a href='bestellingen.php'><h3>Bestellingen</h3></a>
             <a href='settings.php'><h3>Settings</h3></a>
             <a href='admin.php'><h3>Admin</h3></a>
             <a href='index.php'><h3>Logout</h3></a>

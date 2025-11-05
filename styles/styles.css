@@ -281,6 +281,21 @@ body {
     animation-delay: 2s;
 }
 
+.error_notification {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    padding: 10px;
+    color: white;
+    background-color: #d30000ff;
+    border: 1px solid black;
+    border-radius: 5px;
+    opacity: 1;
+    animation: fadeOut 3s forwards;
+    animation-delay: 2s;
+}
+
+
 @keyframes fadeOut {
     to {
         opacity: 0;
@@ -294,6 +309,7 @@ body {
 
 #form_container {
     width: 50%;
+    margin-top: 20px;
 }
 
 #update_form_container {
@@ -352,4 +368,8 @@ body {
     padding: 25px;
     margin: 25px;
     border-bottom: solid black 3px;
+}
+
+#userinfo_container {
+    padding: 50px;
 }

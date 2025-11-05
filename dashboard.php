@@ -53,6 +53,20 @@
             }, 5000);
         }
     });
+
+    //delete error_notification na dat het weg fade
+    window.addEventListener('DOMContentLoaded', () => {
+        const error_notification = document.querySelector('.error_notification');
+        if (error_notification) {
+            setTimeout(() => {
+                error_notification.remove();
+
+                const url = new URL(window.location);
+                url.searchParams.delete('error_notification');
+                history.replaceState(null, '', url);
+            }, 5000);
+        }
+    });
 </script>
 
 <!DOCTYPE html>
@@ -67,10 +81,15 @@
     <?php require_once "header.php";?>    
 
     <?php
-    //notification code
+        //notification code
         if (isset($_GET['edit_notification'])) {
             $msg = urldecode($_GET['edit_notification']);
             echo "<div class='notification'>$msg</div>";
+        }
+        //error code
+        if (isset($_GET['error_notification'])) {
+            $msg = urldecode($_GET['error_notification']);
+            echo "<div class='error_notification'>$msg</div>";
         }
     ?>
     <div id="main_container">

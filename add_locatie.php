@@ -22,7 +22,12 @@
             $system = $conn->prepare("insert into locatie (locatienaam) values (?);");
             $system->bind_param("s", $locatienaam);
             $system->execute();       
-            $notif = "Locatie toegevoegd";
+            $system->close();
+
+            $msg = "Locatie toegevoegd";
+            
+            header("location: dashboard.php?edit_notification=". urlencode($msg));
+            exit();
         }
     }
 ?>
@@ -40,7 +45,6 @@
     <div id="main_container">
         <h2 class="koptekst">Locatie toevoegen</h2>
         <div id="form_container">
-            <p class="notif"><?php echo $notif;?></p>
             <form method="POST" class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <p class="error"><?php echo $locatienaam_err;?></p>
                 <input class="input" type="text" name="locatienaam" placeholder="Locatie naam..." required> 

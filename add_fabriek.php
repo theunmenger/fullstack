@@ -21,8 +21,14 @@
         } else {
             $system = $conn->prepare("insert into fabriek (fabrieknaam) values (?);");
             $system->bind_param("s", $fabrieknaam);
-            $system->execute();   
-            $notif = "Fabriek toegevoegd";    
+            $system->execute(); 
+            $system->close();
+            
+            $msg = "Fabriek toegevoegd";    
+
+            header("location: dashboard.php?edit_notification=". urlencode($msg));
+
+            exit();
         }
     }
 ?>

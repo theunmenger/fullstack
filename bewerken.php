@@ -22,6 +22,7 @@
 <body>
     <?php require_once "header.php";?>  
     <div id="main_container">
+        <h2 class="koptekst">Product bestellen</h2>
         <a href="dashboard.php" class="back_button">Back</a>
         <table id="dashboard_table">
             <p class="error" style="align-self: flex-start;">* is onder het minimum aantal</p>
@@ -31,6 +32,7 @@
                     <th>Type</th>
                     <th>Fabriek</th>
                     <th>Aantal</th>
+                    <th>Minimumaantal</th>
                     <th>Prijs</th>
                     <th>Verkoopprijs</th>
                     <th>Locatie</th>
@@ -60,6 +62,7 @@
                                 <td>". htmlspecialchars($row['type']). "</td>
                                 <td>". htmlspecialchars($row['fabrieknaam']). "</td>
                                 <td class='$class'>". htmlspecialchars($row['aantal']). "</td>
+                                <td>". htmlspecialchars($row['minimumaantal']). "</td>
                                 <td> €". htmlspecialchars($row['prijs']). "</td>
                                 <td> €". htmlspecialchars($row['verkoopprijs']). "</td>
                                 <td>". htmlspecialchars($row['locatienaam']). "</td>
